@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 
-namespace ShopApp.Identity.Api
+namespace ShopApp.Product.Api
 {
-    public class GreeterService : Greeter.GreeterBase
+    public class ProductService : Product.ProductBase
     {
-        private readonly ILogger<GreeterService> _logger;
-        public GreeterService(ILogger<GreeterService> logger)
+        private readonly ILogger<ProductService> _logger;
+        public ProductService(ILogger<ProductService> logger)
         {
             _logger = logger;
         }

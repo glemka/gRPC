@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace ShopApp.Identity.Api
+namespace ShopApp.Product.Api
 {
     public class Program
     {
@@ -14,7 +14,6 @@ namespace ShopApp.Identity.Api
         {
             CreateHostBuilder(args).Build().Run();
         }
-
 
         // Additional configuration is required to successfully run gRPC on macOS.
         // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682

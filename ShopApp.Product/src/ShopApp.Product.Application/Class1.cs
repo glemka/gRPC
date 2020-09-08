@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShopApp.Identity.Application
+namespace ShopApp.Product.Application
 {
     public class Class1
     {

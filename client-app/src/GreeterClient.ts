@@ -1,8 +1,8 @@
-import { HelloRequest } from './generated/greet_pb';
-import { GreeterClient } from './generated/greet_pb_service';
+import { HelloRequest } from './generated/Product/product_pb';
+import { ProductClient } from './generated/Product/product_pb_service';
 
 
-var client = new GreeterClient('https://localhost:5001')
+var client = new ProductClient('https://localhost:5001')
 
 export const sendRequest = (name: string) => {
     var request = new HelloRequest();

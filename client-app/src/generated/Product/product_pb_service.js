@@ -1,36 +1,36 @@
-// package: greet
-// file: greet.proto
+// package: product
+// file: product.proto
 /* eslint-disable */
-var greet_pb = require("./greet_pb");
+var product_pb = require("./product_pb");
 var grpc = require("@improbable-eng/grpc-web").grpc;
 
-var Greeter = (function () {
-  function Greeter() {}
-  Greeter.serviceName = "greet.Greeter";
-  return Greeter;
+var Product = (function () {
+  function Product() {}
+  Product.serviceName = "product.Product";
+  return Product;
 }());
 
-Greeter.SayHello = {
+Product.SayHello = {
   methodName: "SayHello",
-  service: Greeter,
+  service: Product,
   requestStream: false,
   responseStream: false,
-  requestType: greet_pb.HelloRequest,
-  responseType: greet_pb.HelloReply
+  requestType: product_pb.HelloRequest,
+  responseType: product_pb.HelloReply
 };
 
-exports.Greeter = Greeter;
+exports.Product = Product;
 
-function GreeterClient(serviceHost, options) {
+function ProductClient(serviceHost, options) {
   this.serviceHost = serviceHost;
   this.options = options || {};
 }
 
-GreeterClient.prototype.sayHello = function sayHello(requestMessage, metadata, callback) {
+ProductClient.prototype.sayHello = function sayHello(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  var client = grpc.unary(Greeter.SayHello, {
+  var client = grpc.unary(Product.SayHello, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -57,5 +57,5 @@ GreeterClient.prototype.sayHello = function sayHello(requestMessage, metadata, c
   };
 };
 
-exports.GreeterClient = GreeterClient;
+exports.ProductClient = ProductClient;
 

@@ -1,21 +1,21 @@
-// package: greet
-// file: greet.proto
+// package: product
+// file: product.proto
 
-import * as greet_pb from "./greet_pb";
+import * as product_pb from "./product_pb";
 import {grpc} from "@improbable-eng/grpc-web";
 
-type GreeterSayHello = {
+type ProductSayHello = {
   readonly methodName: string;
-  readonly service: typeof Greeter;
+  readonly service: typeof Product;
   readonly requestStream: false;
   readonly responseStream: false;
-  readonly requestType: typeof greet_pb.HelloRequest;
-  readonly responseType: typeof greet_pb.HelloReply;
+  readonly requestType: typeof product_pb.HelloRequest;
+  readonly responseType: typeof product_pb.HelloReply;
 };
 
-export class Greeter {
+export class Product {
   static readonly serviceName: string;
-  static readonly SayHello: GreeterSayHello;
+  static readonly SayHello: ProductSayHello;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -46,18 +46,18 @@ interface BidirectionalStream<ReqT, ResT> {
   on(type: 'status', handler: (status: Status) => void): BidirectionalStream<ReqT, ResT>;
 }
 
-export class GreeterClient {
+export class ProductClient {
   readonly serviceHost: string;
 
   constructor(serviceHost: string, options?: grpc.RpcOptions);
   sayHello(
-    requestMessage: greet_pb.HelloRequest,
+    requestMessage: product_pb.HelloRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: greet_pb.HelloReply|null) => void
+    callback: (error: ServiceError|null, responseMessage: product_pb.HelloReply|null) => void
   ): UnaryResponse;
   sayHello(
-    requestMessage: greet_pb.HelloRequest,
-    callback: (error: ServiceError|null, responseMessage: greet_pb.HelloReply|null) => void
+    requestMessage: product_pb.HelloRequest,
+    callback: (error: ServiceError|null, responseMessage: product_pb.HelloReply|null) => void
   ): UnaryResponse;
 }
 
