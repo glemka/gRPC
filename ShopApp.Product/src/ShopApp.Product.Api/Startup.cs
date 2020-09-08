@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShopApp.Common.Mongo;
+using ShopApp.Product.Application.Products;
 
 namespace ShopApp.Product.Api
 {
@@ -34,7 +36,7 @@ namespace ShopApp.Product.Api
                 });
             });
             services.AddMongo();
-
+            services.AddMediatR(typeof(List.Query).Assembly);
 
         }
 

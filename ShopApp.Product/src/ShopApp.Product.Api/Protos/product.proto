@@ -5,14 +5,28 @@ option csharp_namespace = "ShopApp.Product";
 package product;
 
 service Product {
-  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc Create (CreateRequest) returns (CreateReply);
+  rpc List (ListRequest) returns (ListReply);
 }
 
 
-message HelloRequest {
+message ListRequest {
+
+}
+message ListReply{
+    repeated ProductItem items = 1;
+}
+
+message ProductItem {
+    string id = 1;
+    string name = 2;
+}
+
+
+message CreateRequest {
   string name = 1;
 }
 
-message HelloReply {
-  string message = 1;
+message CreateReply {
+  string id = 1;
 }

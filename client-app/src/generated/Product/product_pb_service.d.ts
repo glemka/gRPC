@@ -4,18 +4,28 @@
 import * as product_pb from "./product_pb";
 import {grpc} from "@improbable-eng/grpc-web";
 
-type ProductSayHello = {
+type ProductCreate = {
   readonly methodName: string;
   readonly service: typeof Product;
   readonly requestStream: false;
   readonly responseStream: false;
-  readonly requestType: typeof product_pb.HelloRequest;
-  readonly responseType: typeof product_pb.HelloReply;
+  readonly requestType: typeof product_pb.CreateRequest;
+  readonly responseType: typeof product_pb.CreateReply;
+};
+
+type ProductList = {
+  readonly methodName: string;
+  readonly service: typeof Product;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof product_pb.ListRequest;
+  readonly responseType: typeof product_pb.ListReply;
 };
 
 export class Product {
   static readonly serviceName: string;
-  static readonly SayHello: ProductSayHello;
+  static readonly Create: ProductCreate;
+  static readonly List: ProductList;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -50,14 +60,23 @@ export class ProductClient {
   readonly serviceHost: string;
 
   constructor(serviceHost: string, options?: grpc.RpcOptions);
-  sayHello(
-    requestMessage: product_pb.HelloRequest,
+  create(
+    requestMessage: product_pb.CreateRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: product_pb.HelloReply|null) => void
+    callback: (error: ServiceError|null, responseMessage: product_pb.CreateReply|null) => void
   ): UnaryResponse;
-  sayHello(
-    requestMessage: product_pb.HelloRequest,
-    callback: (error: ServiceError|null, responseMessage: product_pb.HelloReply|null) => void
+  create(
+    requestMessage: product_pb.CreateRequest,
+    callback: (error: ServiceError|null, responseMessage: product_pb.CreateReply|null) => void
+  ): UnaryResponse;
+  list(
+    requestMessage: product_pb.ListRequest,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: product_pb.ListReply|null) => void
+  ): UnaryResponse;
+  list(
+    requestMessage: product_pb.ListRequest,
+    callback: (error: ServiceError|null, responseMessage: product_pb.ListReply|null) => void
   ): UnaryResponse;
 }
 

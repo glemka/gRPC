@@ -1,7 +1,8 @@
 import React from 'react';
-import { sendRequest } from './GreeterClient'
+import { createCommand, listCommand } from './GreeterClient'
 const RpcClient: React.FC = () => {
-  sendRequest('test')
+  createCommand('test')
+  listCommand();
   return <div>SampleText</div>;
 };
 
