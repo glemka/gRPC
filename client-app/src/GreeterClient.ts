@@ -1,8 +1,9 @@
 import { CreateRequest, ListRequest } from './generated/Product/product_pb';
 import { ProductClient } from './generated/Product/product_pb_service';
 
+var productUrl = process.env.REACT_APP_PRODUCT_URL;
 
-var client = new ProductClient('https://localhost:50051')
+var client = new ProductClient(productUrl!)
 
 export const createCommand = (name: string) => {
     var request = new CreateRequest();
