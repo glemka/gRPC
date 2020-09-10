@@ -2,7 +2,7 @@ import { CreateRequest, ListRequest } from './generated/Product/product_pb';
 import { ProductClient } from './generated/Product/product_pb_service';
 
 
-var client = new ProductClient('https://localhost:5001')
+var client = new ProductClient('https://localhost:50051')
 
 export const createCommand = (name: string) => {
     var request = new CreateRequest();
