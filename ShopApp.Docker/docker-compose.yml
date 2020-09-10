@@ -1,0 +1,43 @@
+version: "3.5"
+
+volumes:
+  mongo:
+      driver: local
+networks:
+  shopNetwork:
+    name: shop-network
+
+services:
+  products:
+    container_name: "production_products"
+    environment: 
+      - ASPNETCORE_URLS=https://+:5001
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - 5001:5001
+    build:
+      context: ../
+      dockerfile: ./ShopApp.Docker/Product/Dockerfile
+    networks:
+      - shopNetwork
+  mongo:
+    image: mongo:4
+    container_name: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - shopNetwork
+    volumes:
+      - mongo:/data/db
+  client:
+    stdin_open: true
+    container_name: production_client
+    build:
+        context: ../
+        dockerfile: ./ShopApp.Docker/client/Dockerfile
+    ports: 
+        - 3000:3000
+    networks:
+        - shopNetwork 

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\ShopApp.Common\src\ShopApp.Common\ShopApp.Common.csproj" />
+    <ProjectReference Include="..\..\..\ShopApp.Shared\src\ShopApp.Shared\ShopApp.Shared.csproj" />
     <ProjectReference Include="..\ShopApp.Product.Application\ShopApp.Product.Application.csproj" />
   </ItemGroup>
 

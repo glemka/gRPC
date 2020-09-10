@@ -4,3 +4,7 @@ obj
 .vscode
 .DS_Store
 v16
+*.crt
+*.key
+*.pfx
+*.log
