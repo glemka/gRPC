@@ -28,23 +28,37 @@ services:
       - mongo
     networks:
       - shopNetwork
-  nginx: 
-    image: nginx:latest
-    container_name: production_nginx
-    volumes:
-      - ..\nginx\nginx.conf:/etc/nginx/nginx.conf
-      - ..\nginx\error.log:/var/log/nginx/error.log
-      - ..\nginx\error2.log:/etc/nginx/error2.log
+  yag:
+    container_name: "production_yag"
+    environment: 
+      - ASPNETCORE_URLS=https://+:50051
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     ports:
-      - 80:80
       - 50051:50051
+    build:
+      context: ../
+      dockerfile: ./ShopApp.Docker/Yag/Dockerfile
     networks:
       - shopNetwork
-    depends_on: 
-      - products
-    secrets:
-      - nginx.cert
-      - nginx.key      
+  # nginx: 
+  #   image: nginx:latest
+  #   container_name: production_nginx
+  #   volumes:
+  #     - ..\nginx\nginx.conf:/etc/nginx/nginx.conf
+  #     - ..\nginx\error.log:/var/log/nginx/error.log
+  #     - ..\nginx\error2.log:/etc/nginx/error2.log
+  #   ports:
+  #     - 80:80
+  #     - 50051:50051
+  #   networks:
+  #     - shopNetwork
+  #   depends_on: 
+  #     - products
+  #   secrets:
+  #     - nginx.cert
+  #     - nginx.key      
   mongo:
     image: mongo:4
     container_name: mongo
@@ -66,3 +80,6 @@ services:
       - 3000:3000
     networks:
       - shopNetwork 
+    volumes:
+      - ../ShopApp.Shared/src/ShopApp.Shared/Cert/prod.crt:/etc/cert/prod.crt
+      - ../ShopApp.Shared/src/ShopApp.Shared/Cert/prod.key:/etc/cert/prod.key

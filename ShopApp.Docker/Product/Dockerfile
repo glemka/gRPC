@@ -27,4 +27,7 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 COPY ["ShopApp.Shared/src/ShopApp.Shared/Cert/aspnetapp.pfx", "/https/aspnetapp.pfx"]
+COPY ["ShopApp.Shared/src/ShopApp.Shared/Cert/prod.crt", "/usr/local/share/ca-certificates/prod.crt"]
+
+RUN chmod 644 /usr/local/share/ca-certificates/prod.crt && update-ca-certificates
 ENTRYPOINT ["dotnet", "ShopApp.Product.Api.dll"]

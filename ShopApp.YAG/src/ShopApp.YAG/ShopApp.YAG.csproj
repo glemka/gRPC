@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ReverseProxy" Version="1.0.0-preview.4.20424.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ShopApp.Shared\src\ShopApp.Shared\ShopApp.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
