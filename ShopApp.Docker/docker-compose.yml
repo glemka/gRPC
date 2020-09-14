@@ -68,6 +68,16 @@ services:
       - shopNetwork
     volumes:
       - mongo:/data/db
+  sqldata:
+    container_name: sqldata
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5434:1433"
+    networks:
+      - shopNetwork 
   client:
     stdin_open: true
     container_name: production_client
