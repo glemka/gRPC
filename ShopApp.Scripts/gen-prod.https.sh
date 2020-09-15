@@ -22,12 +22,12 @@ req_extensions     = v3_req
 x509_extensions    = x509_req
 string_mask        = utf8only
 [ dn ]
-commonName             = TodoWorld prod cert
-emailAddress           = todoworld@servicestack.net
+commonName             = ShopApp prod cert
+emailAddress           = ShopApp@shopapp.shopapp
 countryName            = US
 stateOrProvinceName    = DE
 localityName           = Wilmington
-organizationName       = Todo World
+organizationName       = ShopApp
 [ x509_req ]
 subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid,issuer

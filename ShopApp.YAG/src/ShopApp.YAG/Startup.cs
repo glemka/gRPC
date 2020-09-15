@@ -20,6 +20,17 @@ namespace ShopApp.YAG
         {
             services.AddReverseProxy()
                 .LoadFromConfig(Configuration.GetSection("ReverseProxy"));
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -29,7 +40,7 @@ namespace ShopApp.YAG
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
-            
+            app.UseCors("CorsPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("", ctx => ctx.Response.WriteAsync("YAG"));

@@ -1,7 +1,7 @@
 import { CreateRequest, ListRequest } from './generated/Product/product_pb';
 import { ProductClient } from './generated/Product/product_pb_service';
 
-var productUrl = process.env.REACT_APP_PRODUCT_URL;
+var productUrl = process.env.REACT_APP_API_GATEWAY;
 
 var client = new ProductClient(productUrl!)
 

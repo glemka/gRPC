@@ -75,7 +75,7 @@ services:
       context: ../
       dockerfile: ./ShopApp.Docker/client/Dockerfile
     environment:
-      - REACT_APP_PRODUCT_URL=https://localhost:50051
+      - REACT_APP_API_GATEWAY=https://localhost:50051
     ports: 
       - 3000:3000
     networks:

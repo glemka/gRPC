@@ -22,19 +22,7 @@ namespace ShopApp.Product.Api
             services.AddGrpc(options =>
             {
                 options.EnableDetailedErrors = true;
-            });
-
-            services.AddCors(opt =>
-            {
-                opt.AddPolicy("CorsPolicy", policy =>
-                {
-                    policy
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
-                });
-            });
+            });           
             services.AddMongo();
             services.AddMediatR(typeof(List.Query).Assembly);
 
@@ -49,13 +37,11 @@ namespace ShopApp.Product.Api
             }
 
             app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseCors("CorsPolicy");
+            app.UseRouting();           
             app.UseGrpcWeb();
-
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<ProductService>().EnableGrpcWeb().RequireCors("CorsPolicy");
+                endpoints.MapGrpcService<ProductService>().EnableGrpcWeb();
                 ;
 
                 endpoints.MapGet("/", async context =>
