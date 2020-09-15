@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "ShopApp.Identity.Api";
+
+package ident;
+
+service Identity {
+  rpc Login (LoginRequest) returns (LoginReply);
+  rpc Register (RegisterRequest) returns (RegisterReply);
+}
+
+message LoginReply {
+  string displayName = 1;
+  string token = 2;
+  string username = 3;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message RegisterRequest {
+    string displayName = 1;
+    string username =2;
+    string email = 3;
+    string password = 4;
+}
+
+message RegisterReply{
+    string displayName = 1;
+    string token = 2;
+    string username = 3;
+}
