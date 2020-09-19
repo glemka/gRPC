@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option csharp_namespace = "ShopApp.Order";
+
+package ord;
+
+service Order {
+  rpc Create (CreateRequest) returns (CreateReply);
+  rpc List (ListRequest) returns (ListReply);
+}
+
+
+message ListRequest {
+
+}
+message ListReply{
+    repeated OrderItem items = 1;
+}
+
+message OrderItem {
+    string id = 1;
+    string productId = 2;
+}
+
+
+message CreateRequest {
+  string productId = 1;
+}
+
+message CreateReply {
+  string id = 1;
+}

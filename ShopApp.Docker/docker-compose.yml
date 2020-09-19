@@ -18,7 +18,10 @@ services:
       - ASPNETCORE_URLS=https://+:5001
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx 
+    # volumes: 
+    #   - ../ShopApp.Shared/src/ShopApp.Shared/Cert/aspnetapp.pfx:/https/aspnetapp.pfx
+    #   - ../ShopApp.Shared/src/ShopApp.Shared/Cert/prod.crt:/usr/local/share/ca-certificates/prod.crt
     ports:
       - 5001:5001
     build:
@@ -28,13 +31,35 @@ services:
       - mongo
     networks:
       - shopNetwork
+  orders:
+    container_name: "production_orders"
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:5003
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx 
+    # volumes: 
+    #   - ../ShopApp.Shared/src/ShopApp.Shared/Cert/aspnetapp.pfx:/https/aspnetapp.pfx
+    #   - ../ShopApp.Shared/src/ShopApp.Shared/Cert/prod.crt:/usr/local/share/ca-certificates/prod.crt
+    # command: update-ca-certificates
+    ports:
+      - 5003:5003
+    build:
+      context: ../
+      dockerfile: ./ShopApp.Docker/Order/Dockerfile
+    networks:
+      - shopNetwork
   yag:
     container_name: "production_yag"
     environment: 
-      - ASPNETCORE_URLS=https://+:50051
       - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:50051
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx 
+    # volumes: 
+    #   - ../ShopApp.Shared/src/ShopApp.Shared/Cert/aspnetapp.pfx:/https/aspnetapp.pfx
+    #   - ../ShopApp.Shared/src/ShopApp.Shared/Cert/prod.crt:/usr/local/share/ca-certificates/prod.crt
+    # command: update-ca-certificates  
     ports:
       - 50051:50051
     build:

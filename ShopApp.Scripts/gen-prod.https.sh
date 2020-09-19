@@ -1,4 +1,4 @@
-DOMAIN=products
+DOMAIN=localhost
 if [ $# -ge 1 ]
   then
     DOMAIN=$1
@@ -44,6 +44,11 @@ subjectAltName         = @alt_names
 nsComment              = "OpenSSL Generated Certificate"
 [ alt_names ]
 DNS.1                  = $DOMAIN
+DNS.2                  = orders
+DNS.3                  = products
+DNS.4                  = identity
+DNS.5                  = local
+
 EOT
 
 openssl req -config prod.config -new -out prod.csr.pem
