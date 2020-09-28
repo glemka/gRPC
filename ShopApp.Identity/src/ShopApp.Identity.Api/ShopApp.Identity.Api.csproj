@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Protobuf Include="..\..\..\ShopApp.Shared\src\ShopApp.Shared\Protos\identity.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0"/>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.24.0" />
+    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.31.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ShopApp.Common\src\ShopApp.Common\ShopApp.Common.csproj" />
+    <ProjectReference Include="..\..\..\ShopApp.Shared\src\ShopApp.Shared\ShopApp.Shared.csproj" />
+    <ProjectReference Include="..\ShopApp.Identity.Application\ShopApp.Identity.Application.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -22,10 +22,20 @@ type IdentityRegister = {
   readonly responseType: typeof identity_pb.RegisterReply;
 };
 
+type IdentityList = {
+  readonly methodName: string;
+  readonly service: typeof Identity;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof identity_pb.ListRequest;
+  readonly responseType: typeof identity_pb.ListReply;
+};
+
 export class Identity {
   static readonly serviceName: string;
   static readonly Login: IdentityLogin;
   static readonly Register: IdentityRegister;
+  static readonly List: IdentityList;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -77,6 +87,15 @@ export class IdentityClient {
   register(
     requestMessage: identity_pb.RegisterRequest,
     callback: (error: ServiceError|null, responseMessage: identity_pb.RegisterReply|null) => void
+  ): UnaryResponse;
+  list(
+    requestMessage: identity_pb.ListRequest,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: identity_pb.ListReply|null) => void
+  ): UnaryResponse;
+  list(
+    requestMessage: identity_pb.ListRequest,
+    callback: (error: ServiceError|null, responseMessage: identity_pb.ListReply|null) => void
   ): UnaryResponse;
 }
 

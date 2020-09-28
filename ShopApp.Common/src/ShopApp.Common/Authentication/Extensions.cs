@@ -19,7 +19,7 @@ namespace ShopApp.Common.Authentication
 
             var options = configuration.GetOptions<JwtOptions>("jwt");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.TokenKey));
-
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {

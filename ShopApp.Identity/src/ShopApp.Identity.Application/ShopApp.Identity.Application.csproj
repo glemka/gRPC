@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ShopApp.Common\src\ShopApp.Common\ShopApp.Common.csproj" />
+    <ProjectReference Include="..\ShopApp.Identity.Domain\ShopApp.Identity.Domain.csproj" />
+    <ProjectReference Include="..\ShopApp.Identity.Persistence\ShopApp.Identity.Persistence.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

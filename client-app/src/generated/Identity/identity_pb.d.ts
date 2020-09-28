@@ -115,3 +115,65 @@ export namespace RegisterReply {
   }
 }
 
+export class IdentityItem extends jspb.Message {
+  getDisplayname(): string;
+  setDisplayname(value: string): void;
+
+  getUsername(): string;
+  setUsername(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): IdentityItem.AsObject;
+  static toObject(includeInstance: boolean, msg: IdentityItem): IdentityItem.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: IdentityItem, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): IdentityItem;
+  static deserializeBinaryFromReader(message: IdentityItem, reader: jspb.BinaryReader): IdentityItem;
+}
+
+export namespace IdentityItem {
+  export type AsObject = {
+    displayname: string,
+    username: string,
+  }
+}
+
+export class ListRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ListRequest): ListRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: ListRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListRequest;
+  static deserializeBinaryFromReader(message: ListRequest, reader: jspb.BinaryReader): ListRequest;
+}
+
+export namespace ListRequest {
+  export type AsObject = {
+  }
+}
+
+export class ListReply extends jspb.Message {
+  clearItemsList(): void;
+  getItemsList(): Array<IdentityItem>;
+  setItemsList(value: Array<IdentityItem>): void;
+  addItems(value?: IdentityItem, index?: number): IdentityItem;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListReply.AsObject;
+  static toObject(includeInstance: boolean, msg: ListReply): ListReply.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: ListReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListReply;
+  static deserializeBinaryFromReader(message: ListReply, reader: jspb.BinaryReader): ListReply;
+}
+
+export namespace ListReply {
+  export type AsObject = {
+    itemsList: Array<IdentityItem.AsObject>,
+  }
+}
+

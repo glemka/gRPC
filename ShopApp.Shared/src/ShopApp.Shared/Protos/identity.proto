@@ -7,6 +7,7 @@ package ident;
 service Identity {
   rpc Login (LoginRequest) returns (LoginReply);
   rpc Register (RegisterRequest) returns (RegisterReply);
+  rpc List (ListRequest) returns (ListReply);
 }
 
 message LoginReply {
@@ -31,4 +32,17 @@ message RegisterReply{
     string displayName = 1;
     string token = 2;
     string username = 3;
+}
+
+message IdentityItem {
+    string displayName = 1;
+    string username = 2;
+}
+
+message ListRequest {
+
+}
+
+message ListReply{
+    repeated IdentityItem items = 1;
 }

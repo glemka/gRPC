@@ -49,6 +49,22 @@ services:
       dockerfile: ./ShopApp.Docker/Order/Dockerfile
     networks:
       - shopNetwork
+  identity:
+    container_name: "production_identity"
+    environment:
+      - ASPNETCORE_URLS=https://+:5002
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    ports:
+      - 5002:5002
+    build:
+      context: ../
+      dockerfile: ./ShopApp.Docker/Identity/Dockerfile
+    networks:
+      - shopNetwork
+    depends_on:
+      - sqldata
   yag:
     container_name: "production_yag"
     environment: 
@@ -111,6 +127,7 @@ services:
       dockerfile: ./ShopApp.Docker/client/Dockerfile
     environment:
       - REACT_APP_API_GATEWAY=https://localhost:50051
+      - REACT_APP_API_IDENTITY=https://localhost:5002
     ports: 
       - 3000:3000
     networks:
@@ -118,3 +135,4 @@ services:
     volumes:
       - ../ShopApp.Shared/src/ShopApp.Shared/Cert/prod.crt:/etc/cert/prod.crt
       - ../ShopApp.Shared/src/ShopApp.Shared/Cert/prod.key:/etc/cert/prod.key
+      - ../client-app:/app

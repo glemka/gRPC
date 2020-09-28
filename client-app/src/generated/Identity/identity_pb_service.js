@@ -28,6 +28,15 @@ Identity.Register = {
   responseType: identity_pb.RegisterReply
 };
 
+Identity.List = {
+  methodName: "List",
+  service: Identity,
+  requestStream: false,
+  responseStream: false,
+  requestType: identity_pb.ListRequest,
+  responseType: identity_pb.ListReply
+};
+
 exports.Identity = Identity;
 
 function IdentityClient(serviceHost, options) {
@@ -71,6 +80,37 @@ IdentityClient.prototype.register = function register(requestMessage, metadata, 
     callback = arguments[1];
   }
   var client = grpc.unary(Identity.Register, {
+    request: requestMessage,
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport,
+    debug: this.options.debug,
+    onEnd: function (response) {
+      if (callback) {
+        if (response.status !== grpc.Code.OK) {
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
+        } else {
+          callback(null, response.message);
+        }
+      }
+    }
+  });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
+};
+
+IdentityClient.prototype.list = function list(requestMessage, metadata, callback) {
+  if (arguments.length === 2) {
+    callback = arguments[1];
+  }
+  var client = grpc.unary(Identity.List, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
