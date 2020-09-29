@@ -2,9 +2,9 @@ import { LoginRequest, LoginReply, RegisterReply, RegisterRequest, ListRequest }
 import { Identity, IdentityClient } from './generated/Identity/identity_pb_service';
 import { grpc } from "@improbable-eng/grpc-web";
 
-var productUrl = process.env.REACT_APP_API_GATEWAY;
-
-var client = new IdentityClient(productUrl!)
+var apiIdentityUrl = process.env.REACT_APP_API_IDENTITY;
+console.log(apiIdentityUrl)
+var client = new IdentityClient(apiIdentityUrl!)
 
 export const registerCommand = (username: string, displayname: string, email: string, password: string) => {
     var request = new RegisterRequest();
@@ -46,8 +46,7 @@ export const test =(email: string, password: string) => {
     client.login(request, (err, response) => {
         if (response) {
             console.log(response.toObject())
-            var listRequest = new ListRequest();
-
+            var listRequest = new ListRequest();            
             var c = `Bearer ${response.getToken()}`;
             grpc.invoke(Identity.List, {
                 request: listRequest,

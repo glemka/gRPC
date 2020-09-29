@@ -37,6 +37,7 @@ namespace ShopApp.YAG
             services.AddJwt();
             services.AddAuthorization(opt =>
             {
+                //opt.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.AddPolicy("authorizedUsers", policy);
             });
@@ -50,9 +51,11 @@ namespace ShopApp.YAG
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors("CorsPolicy");
+            app.UseAccessTokenValidator();
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("", ctx => ctx.Response.WriteAsync("YAG"));

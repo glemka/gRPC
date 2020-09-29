@@ -33,6 +33,18 @@ namespace ShopApp.Identity.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
+                });
+            });
+            //
             services.AddJwt();
             services.AddDbContext<DataContext>(opt =>
             {
@@ -67,12 +79,14 @@ namespace ShopApp.Identity.Api
             app.UseHttpsRedirection();
             
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
             app.UseGrpcWeb();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<IdentityService>().EnableGrpcWeb().RequireAuthorization("authorizedUsers");
+                endpoints.MapGrpcService<IdentityService>().EnableGrpcWeb().RequireAuthorization("authorizedUsers").RequireCors("CorsPolicy");
                 ;
 
                 endpoints.MapGet("/", async context =>

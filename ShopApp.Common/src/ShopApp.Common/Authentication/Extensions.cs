@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -20,6 +21,11 @@ namespace ShopApp.Common.Authentication
             var options = configuration.GetOptions<JwtOptions>("jwt");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.TokenKey));
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddTransient<AccessTokenValidatorMiddleware>();
+            services.AddHttpContextAccessor();
+
+
+            services.AddTransient<IAccessTokenService, AccessTokenService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {
@@ -32,5 +38,7 @@ namespace ShopApp.Common.Authentication
                     };
                 });
         }
+        public static IApplicationBuilder UseAccessTokenValidator(this IApplicationBuilder app)
+           => app.UseMiddleware<AccessTokenValidatorMiddleware>();
     }
 }
