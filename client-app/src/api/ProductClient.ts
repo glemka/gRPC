@@ -1,6 +1,5 @@
-import { LoginRequest } from '../generated/Identity/identity_pb';
 import { IdentityClient } from '../generated/Identity/identity_pb_service';
-import { CreateRequest, ListRequest } from '../generated/Product/product_pb';
+import { CreateRequest, ListRequest, ListReply } from '../generated/Product/product_pb';
 import { Product, ProductClient } from '../generated/Product/product_pb_service';
 import { grpc } from "@improbable-eng/grpc-web";
 
@@ -25,50 +24,25 @@ export const createCommand = (name: string) => {
 }
 
 
+export const listCommand = (token: string): Promise<ListReply> => {
 
-export const test =(email: string, password: string) => {
-    var request = new LoginRequest();
-    request.setEmail(email);
-    request.setPassword(password)
-    Idclient.login(request, (err, response) => {
-        if (response) {
-            console.log(response.toObject())
-            var listRequest = new ListRequest();            
-            var c = `Bearer ${response.getToken()}`;
-            grpc.invoke(Product.List, {
-                request: listRequest,
-                metadata: new grpc.Metadata({'Authorization':c}),
-                host: apiUrl!,
-                onMessage: (message: ListRequest) => {
-                console.log("got products: ", message.toObject());
-                },
-                onEnd: (code: grpc.Code, msg: string | undefined, trailers: grpc.Metadata) => {
-                    if (code == grpc.Code.OK) {
-                        console.log("all ok")
-                    } else {
-                        console.log("hit an error", code, msg, trailers);
-                    }
+    var listRequest = new ListRequest();
+    return new Promise((resolve, reject) => {
+        grpc.invoke(Product.List, {
+            request: listRequest,
+            metadata: new grpc.Metadata({ 'Authorization': token }),
+            host: apiUrl!,
+            onMessage: (message: ListReply) => {
+                resolve(message)
+            },
+            onEnd: (code: grpc.Code, msg: string | undefined, trailers: grpc.Metadata) => {
+                if (code == grpc.Code.OK) {
+                    console.log("all ok")
+                } else {
+                    return reject(msg);
                 }
+            },
 
-            })
-        }
-        if (err) {
-            console.log(err);
-        }
-    });
-}
-
-
-
-export const listCommand = () => {
-    var request = new ListRequest();
-
-    client.list(request, (err, response) => {
-        if (response) {
-            console.log(response.toObject())
-        }
-        if (err) {
-            console.log(err);
-        }
-    });
+        })
+    })
 }
