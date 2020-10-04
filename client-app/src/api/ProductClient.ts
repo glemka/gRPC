@@ -1,12 +1,11 @@
-import { LoginRequest } from './generated/Identity/identity_pb';
-import { IdentityClient } from './generated/Identity/identity_pb_service';
-import { CreateRequest, ListRequest } from './generated/Product/product_pb';
-import { Product, ProductClient } from './generated/Product/product_pb_service';
+import { LoginRequest } from '../generated/Identity/identity_pb';
+import { IdentityClient } from '../generated/Identity/identity_pb_service';
+import { CreateRequest, ListRequest } from '../generated/Product/product_pb';
+import { Product, ProductClient } from '../generated/Product/product_pb_service';
 import { grpc } from "@improbable-eng/grpc-web";
 
 var apiUrl = process.env.REACT_APP_API_GATEWAY;
 var apiIdentityUrl = process.env.REACT_APP_API_IDENTITY;
-
 
 var client = new ProductClient(apiUrl!)
 var Idclient = new IdentityClient(apiIdentityUrl!)

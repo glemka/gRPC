@@ -1,5 +1,5 @@
-import { CreateRequest, ListRequest } from './generated/Order/order_pb';
-import { OrderClient } from './generated/Order/order_pb_service';
+import { CreateRequest, ListRequest } from '../generated/Order/order_pb';
+import { OrderClient } from '../generated/Order/order_pb_service';
 
 var productUrl = process.env.REACT_APP_API_GATEWAY;
 
